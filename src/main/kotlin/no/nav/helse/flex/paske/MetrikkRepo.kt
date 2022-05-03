@@ -12,6 +12,14 @@ class Dag(val dag: LocalDate) {
 object MetrikkRepo {
     var antallSjekket = 0
     val dager = listOf(
+        Dag(LocalDate.of(2019, 4, 18)),
+        Dag(LocalDate.of(2019, 4, 19)),
+        Dag(LocalDate.of(2019, 4, 22)),
+        Dag(LocalDate.of(2019, 5, 1)),
+        Dag(LocalDate.of(2019, 5, 17)),
+        Dag(LocalDate.of(2020, 4, 9)),
+        Dag(LocalDate.of(2020, 4, 10)),
+        Dag(LocalDate.of(2020, 4, 13)),
         Dag(LocalDate.of(2020, 5, 1)),
         Dag(LocalDate.of(2020, 5, 17)),
         Dag(LocalDate.of(2021, 4, 1)),
