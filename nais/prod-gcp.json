@@ -3,5 +3,5 @@
   "namespace": "flex",
   "team": "flex",
   "kafkaPool": "nav-prod",
-  "ingress": "https://flex-paaske-statistikk.dev.intern.nav.no"
+  "ingress": "https://flex-paaske-statistikk.intern.nav.no"
 }
