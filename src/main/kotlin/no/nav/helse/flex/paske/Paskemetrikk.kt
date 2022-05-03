@@ -39,7 +39,7 @@ class Paskemetrikk {
                 helligdag.haddeFerieIPerioden++
 
                 this.getSporsmalMedTag("FERIE_NAR")
-                    .hentPeriode()
+                // .hentPeriode()
              /*   if (perioder.size > 5) {
                     log.warn("Søknad $id har ${perioder.size} feriesvar")
                 }
