@@ -25,13 +25,14 @@ class Paskemetrikk {
                 val forsteSvar = feriesporsmal?.forsteSvar
                 if (forsteSvar == "JA") {
                     helligdag.haddeFerieIPerioden++
-
+/*
                     val ferieOverDagen = soknad.getSporsmalMedTag("FERIE_NAR")
                         .hentPeriode()
                         .any { helligdag.dag.isBetweenInclusive(it) }
                     if (ferieOverDagen) {
                         helligdag.feriePaaDenneDagen++
                     }
+                    */
                 }
             }
         }
