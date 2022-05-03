@@ -7,6 +7,7 @@ data class Sykepengesoknad(
     val status: Soknadstatus,
     val fom: LocalDate?,
     val tom: LocalDate?,
+    val sporsmal: List<Sporsmal>,
 )
 
 fun List<Sporsmal>.flatten(): List<Sporsmal> =
