@@ -7,7 +7,6 @@ import no.nav.helse.flex.domain.Svar
 import no.nav.helse.flex.paske.Paskecontroller
 import no.nav.helse.flex.paske.Paskemetrikk
 import org.amshove.kluent.`should be equal to`
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import java.time.LocalDate
@@ -22,7 +21,6 @@ class PaskeTest : FellesTestOppsett() {
     lateinit var paskemetrikk: Paskemetrikk
 
     @Test
-    @Disabled
     fun ferieTest() {
 
         val metrikkFoer = paksecontroller.hentMetrik()
@@ -162,6 +160,7 @@ Antall sjekket: 2
 
 fun skapSoknadUtenFerie(): SykepengesoknadFull {
     return SykepengesoknadFull(
+        id = "sersdrf",
         soknadstype = Soknadstype.ARBEIDSTAKERE,
         status = Soknadstatus.SENDT,
         fom = LocalDate.of(2021, 4, 1),
@@ -172,6 +171,7 @@ fun skapSoknadUtenFerie(): SykepengesoknadFull {
 
 fun skapSoknadMedFerie(): SykepengesoknadFull {
     return SykepengesoknadFull(
+        id = "sersdrf",
         soknadstype = Soknadstype.ARBEIDSTAKERE,
         status = Soknadstatus.SENDT,
         fom = LocalDate.of(2021, 4, 1),
@@ -193,6 +193,7 @@ fun skapSoknadMedFerie(): SykepengesoknadFull {
 }
 
 data class SykepengesoknadFull(
+    val id: String,
     val soknadstype: Soknadstype,
     val status: Soknadstatus,
     val fom: LocalDate?,

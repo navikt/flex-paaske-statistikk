@@ -3,6 +3,7 @@ package no.nav.helse.flex.domain
 import java.time.LocalDate
 
 data class Sykepengesoknad(
+    val id: String,
     val soknadstype: Soknadstype,
     val status: Soknadstatus,
     val fom: LocalDate?,

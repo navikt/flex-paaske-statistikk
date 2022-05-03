@@ -6,41 +6,48 @@ import no.nav.helse.flex.domain.Soknadstatus
 import no.nav.helse.flex.domain.Soknadstype
 import no.nav.helse.flex.domain.Sporsmal
 import no.nav.helse.flex.domain.Sykepengesoknad
+import no.nav.helse.flex.logger
 import no.nav.helse.flex.objectMapper
 import org.springframework.stereotype.Component
 import java.time.LocalDate
 
 @Component
 class Paskemetrikk {
+
+    val log = logger()
     fun prossesser(soknadString: String) {
         MetrikkRepo.antallSjekket++
 
         val soknad = soknadString.tilSykepengesoknadDTO()
 
-        fun Sykepengesoknad.sjekkDag(helligdag: Dag) {
-            if (helligdag.dag.isBetweenInclusive(this.fom!!, this.tom!!)) {
-                helligdag.soknad++
-
-                val feriesporsmal = soknad.getSporsmalMedTagOrNull("FERIE_V2")
-                val forsteSvar = feriesporsmal?.forsteSvar
-                if (forsteSvar == "JA") {
-                    helligdag.haddeFerieIPerioden++
-/*
-                    val ferieOverDagen = soknad.getSporsmalMedTag("FERIE_NAR")
-                        .hentPeriode()
-                        .any { helligdag.dag.isBetweenInclusive(it) }
-                    if (ferieOverDagen) {
-                        helligdag.feriePaaDenneDagen++
-                    }
-                    */
-                }
-            }
-        }
-
         with(soknad) {
             if (arbeidstaker() && sendtEllerKorrigert()) {
                 MetrikkRepo.dager.forEach {
                     sjekkDag(it)
+                }
+            }
+        }
+    }
+
+    fun Sykepengesoknad.sjekkDag(helligdag: Dag) {
+        if (helligdag.dag.isBetweenInclusive(this.fom!!, this.tom!!)) {
+            helligdag.soknad++
+
+            val feriesporsmal = this.getSporsmalMedTagOrNull("FERIE_V2")
+            val forsteSvar = feriesporsmal?.forsteSvar
+            if (forsteSvar == "JA") {
+                helligdag.haddeFerieIPerioden++
+
+                val perioder = this.getSporsmalMedTag("FERIE_NAR")
+                    .hentPeriode()
+                if (perioder.size > 5) {
+                    log.warn("Søknad $id har ${perioder.size} feriesvar")
+                }
+                perioder.forEach {
+                    if (helligdag.dag.isBetweenInclusive(it)) {
+                        helligdag.feriePaaDenneDagen++
+                        return
+                    }
                 }
             }
         }
