@@ -50,7 +50,6 @@ fun Sykepengesoknad.sendtEllerKorrigert(): Boolean {
 }
 
 fun LocalDate.isBetweenInclusive(periode: Periode): Boolean {
-    val a = 2
     return this.isBetweenInclusive(periode.fom, periode.tom)
 }
 
