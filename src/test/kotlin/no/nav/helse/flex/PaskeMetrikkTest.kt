@@ -7,6 +7,7 @@ import no.nav.helse.flex.domain.Svar
 import no.nav.helse.flex.paske.Paskecontroller
 import no.nav.helse.flex.paske.Paskemetrikk
 import org.amshove.kluent.`should be equal to`
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import java.time.LocalDate
@@ -21,6 +22,7 @@ class PaskeTest : FellesTestOppsett() {
     lateinit var paskemetrikk: Paskemetrikk
 
     @Test
+    @Disabled
     fun ferieTest() {
 
         val metrikkFoer = paksecontroller.hentMetrik()
