@@ -1,0 +1,7 @@
+{
+  "app": "flex-paaske-statistikk",
+  "namespace": "flex",
+  "team": "flex",
+  "kafkaPool": "nav-prod",
+  "ingress": "https://flex-paaske-statistikk.dev.intern.nav.no"
+}
