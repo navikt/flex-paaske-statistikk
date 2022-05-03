@@ -12,7 +12,6 @@ import java.time.LocalDate
 @Component
 class Paskemetrikk {
     fun prossesser(soknad: Sykepengesoknad) {
-        MetrikkRepo.prossessert.incrementAndGet()
         with(soknad) {
             if (arbeidstaker() && sendtEllerKorrigert()) {
                 MetrikkRepo.dager.forEach {

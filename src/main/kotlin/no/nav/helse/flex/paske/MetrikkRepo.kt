@@ -24,6 +24,5 @@ val dagerSomSjekkes = listOf(
 )
 
 object MetrikkRepo {
-    val prossessert = AtomicInteger(0)
     val dager = dagerSomSjekkes.map { it to Dag(it) }
 }

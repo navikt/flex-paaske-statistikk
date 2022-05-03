@@ -14,7 +14,6 @@ class Paskecontroller {
     @RequestMapping(method = [RequestMethod.GET])
     fun hentMetrik(): String {
         val buf = StringBuffer()
-        buf.append("\nSjekket ${MetrikkRepo.prossessert.get()}\n")
         MetrikkRepo.dager.forEach { buf.append(it.second.formater()) }
 
         return buf.toString()
