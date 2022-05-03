@@ -3,9 +3,11 @@ package no.nav.helse.flex.kafka
 import no.nav.helse.flex.logger
 import org.apache.kafka.clients.consumer.Consumer
 import org.apache.kafka.clients.consumer.ConsumerRecord
+import org.apache.kafka.clients.consumer.ConsumerRecords
 import org.springframework.kafka.listener.*
 import org.springframework.stereotype.Component
 import org.springframework.util.backoff.ExponentialBackOff
+import java.lang.Exception
 
 @Component
 class KafkaErrorHandler : DefaultErrorHandler(
@@ -17,7 +19,7 @@ class KafkaErrorHandler : DefaultErrorHandler(
     val log = logger()
 
     override fun handleRemaining(
-        thrownException: java.lang.Exception,
+        thrownException: Exception,
         records: MutableList<ConsumerRecord<*, *>>,
         consumer: Consumer<*, *>,
         container: MessageListenerContainer
@@ -31,5 +33,23 @@ class KafkaErrorHandler : DefaultErrorHandler(
         }
 
         super.handleRemaining(thrownException, records, consumer, container)
+    }
+
+    override fun handleBatch(
+        thrownException: Exception,
+        records: ConsumerRecords<*, *>,
+        consumer: Consumer<*, *>,
+        container: MessageListenerContainer,
+        invokeListener: Runnable
+    ) {
+        log.error("Feil i listener:", thrownException)
+
+        records.forEach { record ->
+            log.error(
+                "Feil i prossesseringen av record med offset: ${record.offset()}, key: ${record.key()}",
+            )
+        }
+
+        super.handleBatch(thrownException, records, consumer, container, invokeListener)
     }
 }
