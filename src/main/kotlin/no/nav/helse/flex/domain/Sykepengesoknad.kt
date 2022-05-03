@@ -6,6 +6,7 @@ data class Sykepengesoknad(
     val id: String,
     val soknadstype: Soknadstype,
     val status: Soknadstatus,
+    val korrigerer: String? = null,
     val fom: LocalDate?,
     val tom: LocalDate?,
     val sporsmal: List<Sporsmal>,

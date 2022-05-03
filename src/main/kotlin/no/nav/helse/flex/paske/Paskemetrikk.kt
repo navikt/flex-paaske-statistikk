@@ -6,7 +6,6 @@ import no.nav.helse.flex.domain.Soknadstatus
 import no.nav.helse.flex.domain.Soknadstype
 import no.nav.helse.flex.domain.Sporsmal
 import no.nav.helse.flex.domain.Sykepengesoknad
-import no.nav.helse.flex.logger
 import no.nav.helse.flex.objectMapper
 import org.springframework.stereotype.Component
 import java.time.LocalDate
@@ -14,14 +13,13 @@ import java.time.LocalDate
 @Component
 class Paskemetrikk {
 
-    val log = logger()
     fun prossesser(soknadString: String) {
         MetrikkRepo.antallSjekket++
 
         val soknad = soknadString.tilSykepengesoknadDTO()
 
         with(soknad) {
-            if (arbeidstaker() && sendtEllerKorrigert()) {
+            if (arbeidstaker() && sendtEllerKorrigert() && ikkeKorrigering()) {
                 MetrikkRepo.dager.forEach {
                     sjekkDag(it)
                 }
@@ -59,6 +57,10 @@ fun Sykepengesoknad.arbeidstaker(): Boolean {
 
 fun Sykepengesoknad.sendtEllerKorrigert(): Boolean {
     return this.status == Soknadstatus.KORRIGERT || this.status == Soknadstatus.SENDT
+}
+
+fun Sykepengesoknad.ikkeKorrigering(): Boolean {
+    return this.korrigerer == null
 }
 
 fun LocalDate.isBetweenInclusive(periode: Periode): Boolean {
