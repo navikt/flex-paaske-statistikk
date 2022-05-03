@@ -9,7 +9,6 @@ class Dag(val dag: LocalDate) {
     var haddeFerieIPerioden = 0
 }
 
-
 object MetrikkRepo {
     var antallSjekket = 0
     val dager = listOf(
