@@ -4,16 +4,12 @@ import no.nav.helse.flex.domain.Soknadstatus
 import no.nav.helse.flex.domain.Soknadstype
 import no.nav.helse.flex.domain.Sporsmal
 import no.nav.helse.flex.domain.Svar
-import no.nav.helse.flex.domain.Svartype
-import no.nav.helse.flex.domain.Sykepengesoknad
-import no.nav.helse.flex.domain.Visningskriterie
 import no.nav.helse.flex.paske.Paskecontroller
 import no.nav.helse.flex.paske.Paskemetrikk
 import org.amshove.kluent.`should be equal to`
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.util.*
 
 class PaskeTest : FellesTestOppsett() {
@@ -92,8 +88,8 @@ Antall sjekket: 0
    NaN% av søknadene hadde ferie på denne dagen
 """
 
-        paskemetrikk.prossesser(skapSoknadUtenFerie())
-        paskemetrikk.prossesser(skapSoknadMedFerie())
+        paskemetrikk.prossesser(skapSoknadUtenFerie().serialisertTilString())
+        paskemetrikk.prossesser(skapSoknadMedFerie().serialisertTilString())
 
         val metrikkEtter = paksecontroller.hentMetrik()
         metrikkEtter `should be equal to` """
@@ -162,42 +158,30 @@ Antall sjekket: 2
     }
 }
 
-fun skapSoknadUtenFerie(): Sykepengesoknad {
-    return Sykepengesoknad(
-        fnr = "123",
-        id = UUID.randomUUID().toString(),
+fun skapSoknadUtenFerie(): SykepengesoknadFull {
+    return SykepengesoknadFull(
         soknadstype = Soknadstype.ARBEIDSTAKERE,
         status = Soknadstatus.SENDT,
-        opprettet = LocalDateTime.now(),
         fom = LocalDate.of(2021, 4, 1),
         tom = LocalDate.of(2021, 4, 10),
         sporsmal = emptyList()
     )
 }
 
-fun skapSoknadMedFerie(): Sykepengesoknad {
-    return Sykepengesoknad(
-        fnr = "123",
-        id = UUID.randomUUID().toString(),
+fun skapSoknadMedFerie(): SykepengesoknadFull {
+    return SykepengesoknadFull(
         soknadstype = Soknadstype.ARBEIDSTAKERE,
         status = Soknadstatus.SENDT,
-        opprettet = LocalDateTime.now(),
         fom = LocalDate.of(2021, 4, 1),
         tom = LocalDate.of(2021, 4, 10),
         sporsmal = listOf(
             Sporsmal(
                 tag = "FERIE_V2",
-                sporsmalstekst = "Bla bla?",
                 svar = listOf(Svar(verdi = "JA", id = "sdf")),
-                svartype = Svartype.JA_NEI,
-                kriterieForVisningAvUndersporsmal = Visningskriterie.JA,
                 undersporsmal = listOf(
                     Sporsmal(
                         tag = "FERIE_NAR",
-                        sporsmalstekst = "Bla bla?",
                         svar = listOf(Svar(verdi = "{\"fom\":\"2021-04-01\",\"tom\":\"2021-04-02\"}", id = "sdf")),
-                        svartype = Svartype.JA_NEI,
-                        kriterieForVisningAvUndersporsmal = Visningskriterie.JA,
                         undersporsmal = emptyList()
                     )
                 )
@@ -205,3 +189,12 @@ fun skapSoknadMedFerie(): Sykepengesoknad {
         )
     )
 }
+
+data class SykepengesoknadFull(
+    val soknadstype: Soknadstype,
+    val status: Soknadstatus,
+    val fom: LocalDate?,
+    val tom: LocalDate?,
+    val sporsmal: List<Sporsmal>,
+)
+fun Any.serialisertTilString(): String = objectMapper.writeValueAsString(this)
