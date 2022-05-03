@@ -7,7 +7,6 @@ import no.nav.helse.flex.domain.Svar
 import no.nav.helse.flex.paske.Paskecontroller
 import no.nav.helse.flex.paske.Paskemetrikk
 import org.amshove.kluent.`should be equal to`
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import java.time.LocalDate
@@ -183,7 +182,7 @@ fun skapSoknadMedFerie(): SykepengesoknadFull {
                 svar = listOf(Svar(verdi = "JA", id = "sdf")),
                 undersporsmal = listOf(
                     Sporsmal(
-                        tag = "FERIE_NAR",
+                        tag = "FERIE_NAR_V2",
                         svar = listOf(Svar(verdi = "{\"fom\":\"2021-04-01\",\"tom\":\"2021-04-02\"}", id = "sdf")),
                         undersporsmal = emptyList()
                     )

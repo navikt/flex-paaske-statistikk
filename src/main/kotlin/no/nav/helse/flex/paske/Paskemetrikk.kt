@@ -38,14 +38,14 @@ class Paskemetrikk {
             if (forsteSvar == "JA") {
                 helligdag.haddeFerieIPerioden++
 
-                val perioder = this.getSporsmalMedTagOrNull("FERIE_NAR")?.hentPeriode()
-
-                perioder?.forEach {
-                    if (helligdag.dag.isBetweenInclusive(it)) {
-                        helligdag.feriePaaDenneDagen++
-                        return
+                this.getSporsmalMedTag("FERIE_NAR_V2")
+                    .hentPeriode()
+                    .forEach {
+                        if (helligdag.dag.isBetweenInclusive(it)) {
+                            helligdag.feriePaaDenneDagen++
+                            return
+                        }
                     }
-                }
             }
         }
     }
