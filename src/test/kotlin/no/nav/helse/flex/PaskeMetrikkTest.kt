@@ -22,7 +22,6 @@ class PaskeTest : FellesTestOppsett() {
     lateinit var paskemetrikk: Paskemetrikk
 
     @Test
-    @Disabled
     fun ferieTest() {
 
         val metrikkFoer = paksecontroller.hentMetrik()

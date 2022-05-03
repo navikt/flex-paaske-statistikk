@@ -8,17 +8,6 @@ data class Sykepengesoknad(
     val fom: LocalDate?,
     val tom: LocalDate?,
     val sporsmal: List<Sporsmal>,
-)
-
-fun List<Sporsmal>.flatten(): List<Sporsmal> =
-    flatMap {
-        mutableListOf(it).apply {
-            addAll(it.undersporsmal.flatten())
-        }
-    }
-
-data class SporsmalWrap(
-    val sporsmal: List<Sporsmal>,
 ) {
 
     fun getSporsmalMedTag(tag: String): Sporsmal {
@@ -30,3 +19,10 @@ data class SporsmalWrap(
         return sporsmal.flatten().firstOrNull { s -> s.tag == tag }
     }
 }
+
+fun List<Sporsmal>.flatten(): List<Sporsmal> =
+    flatMap {
+        mutableListOf(it).apply {
+            addAll(it.undersporsmal.flatten())
+        }
+    }

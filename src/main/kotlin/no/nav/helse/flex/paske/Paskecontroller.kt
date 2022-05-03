@@ -15,7 +15,7 @@ class Paskecontroller {
     fun hentMetrik(): String {
         val buf = StringBuffer()
         buf.append("\nAntall sjekket: ${MetrikkRepo.antallSjekket}\n")
-        MetrikkRepo.dager.forEach { buf.append(it.second.formater()) }
+        MetrikkRepo.dager.forEach { buf.append(it.formater()) }
 
         return buf.toString()
     }
