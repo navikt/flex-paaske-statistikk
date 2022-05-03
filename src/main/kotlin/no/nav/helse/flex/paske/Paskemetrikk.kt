@@ -15,38 +15,41 @@ import java.time.LocalDate
 class Paskemetrikk {
     fun prossesser(soknadString: String) {
         MetrikkRepo.antallSjekket++
-        val soknad = soknadString.tilSykepengesoknadDTO()
+        /*
+           val soknad = soknadString.tilSykepengesoknadDTO()
 
-        var spmWrap: SporsmalWrap? = null
+           var spmWrap: SporsmalWrap? = null
 
-        fun Sykepengesoknad.sjekkDag(helligdag: Dag) {
-            if (helligdag.dag.isBetweenInclusive(this.fom!!, this.tom!!)) {
-                helligdag.soknad++
-                if (spmWrap == null) {
-                    spmWrap = soknadString.tilSporsmalWrap()
-                }
-                val feriesporsmal = spmWrap!!.getSporsmalMedTagOrNull("FERIE_V2")
-                val forsteSvar = feriesporsmal?.forsteSvar
-                if (forsteSvar == "JA") {
-                    helligdag.haddeFerieIPerioden++
+           fun Sykepengesoknad.sjekkDag(helligdag: Dag) {
+               if (helligdag.dag.isBetweenInclusive(this.fom!!, this.tom!!)) {
+                   helligdag.soknad++
+                   if (spmWrap == null) {
+                       spmWrap = soknadString.tilSporsmalWrap()
+                   }
+                   val feriesporsmal = spmWrap!!.getSporsmalMedTagOrNull("FERIE_V2")
+                   val forsteSvar = feriesporsmal?.forsteSvar
+                   if (forsteSvar == "JA") {
+                       helligdag.haddeFerieIPerioden++
 
-                    val ferieOverDagen = spmWrap!!.getSporsmalMedTag("FERIE_NAR")
-                        .hentPeriode()
-                        .any { helligdag.dag.isBetweenInclusive(it) }
-                    if (ferieOverDagen) {
-                        helligdag.feriePaaDenneDagen++
-                    }
-                }
-            }
-        }
+                       val ferieOverDagen = spmWrap!!.getSporsmalMedTag("FERIE_NAR")
+                           .hentPeriode()
+                           .any { helligdag.dag.isBetweenInclusive(it) }
+                       if (ferieOverDagen) {
+                           helligdag.feriePaaDenneDagen++
+                       }
+                   }
+               }
+           }
 
-        with(soknad) {
-            if (arbeidstaker() && sendtEllerKorrigert()) {
-                MetrikkRepo.dager.forEach {
-                    sjekkDag(it.second)
-                }
-            }
-        }
+           with(soknad) {
+               if (arbeidstaker() && sendtEllerKorrigert()) {
+                   MetrikkRepo.dager.forEach {
+                       sjekkDag(it.second)
+                   }
+               }
+           }
+
+         */
     }
 }
 
