@@ -78,6 +78,4 @@ private fun Sporsmal.hentPeriode(): List<Periode> {
     return this.svar.map { it.verdi.getJsonPeriode() }
 }
 
-fun String.getJsonPeriode(): Periode {
-    return objectMapper.readValue(this, Periode::class.java)
-}
+fun String.getJsonPeriode(): Periode = objectMapper.readValue(this)
