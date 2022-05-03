@@ -18,7 +18,7 @@ class SykepengesoknadListener(
 
     @KafkaListener(
         topics = [SENDT_SYKEPENGESOKNAD_TOPIC],
-        concurrency = "12",
+        concurrency = "1",
         containerFactory = "importKafkaListenerContainerFactory",
     )
     fun listenBatch(cr: List<ConsumerRecord<String, String>>, acknowledgment: Acknowledgment) {

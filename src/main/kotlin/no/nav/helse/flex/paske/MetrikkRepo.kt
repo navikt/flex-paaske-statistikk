@@ -1,13 +1,12 @@
 package no.nav.helse.flex.paske
 
 import java.time.LocalDate
-import java.util.concurrent.atomic.AtomicInteger
 
 class Dag(val dag: LocalDate) {
 
-    val soknad = AtomicInteger(0)
-    val feriePaaDenneDagen = AtomicInteger(0)
-    val haddeFerieIPerioden = AtomicInteger(0)
+    var soknad = 0
+    var feriePaaDenneDagen = 0
+    var haddeFerieIPerioden = 0
 }
 
 val dagerSomSjekkes = listOf(
@@ -24,5 +23,6 @@ val dagerSomSjekkes = listOf(
 )
 
 object MetrikkRepo {
+    var antallSjekket = 0
     val dager = dagerSomSjekkes.map { it to Dag(it) }
 }

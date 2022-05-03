@@ -12,6 +12,7 @@ import java.time.LocalDate
 @Component
 class Paskemetrikk {
     fun prossesser(soknad: Sykepengesoknad) {
+        MetrikkRepo.antallSjekket++
         with(soknad) {
             if (arbeidstaker() && sendtEllerKorrigert()) {
                 MetrikkRepo.dager.forEach {
@@ -28,17 +29,17 @@ fun Sykepengesoknad.arbeidstaker(): Boolean {
 
 fun Sykepengesoknad.sjekkDag(helligdag: Dag) {
     if (helligdag.dag.isBetweenInclusive(this.fom!!, this.tom!!)) {
-        helligdag.soknad.incrementAndGet()
+        helligdag.soknad++
         val feriesporsmal = this.getSporsmalMedTagOrNull("FERIE_V2")
         val forsteSvar = feriesporsmal?.forsteSvar
         if (forsteSvar == "JA") {
-            helligdag.haddeFerieIPerioden.incrementAndGet()
+            helligdag.haddeFerieIPerioden++
 
             val ferieOverDagen = getSporsmalMedTag("FERIE_NAR")
                 .hentPeriode()
                 .any { helligdag.dag.isBetweenInclusive(it) }
             if (ferieOverDagen) {
-                helligdag.feriePaaDenneDagen.incrementAndGet()
+                helligdag.feriePaaDenneDagen++
             }
         }
     }

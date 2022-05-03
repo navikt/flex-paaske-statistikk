@@ -29,6 +29,8 @@ class PaskeTest : FellesTestOppsett() {
 
         val metrikkFoer = paksecontroller.hentMetrik()
         metrikkFoer `should be equal to` """
+Antall sjekket: 0
+
 2020-05-01
    0 soknader over dagen
    0 hadde ferie i søknaden
@@ -95,6 +97,8 @@ class PaskeTest : FellesTestOppsett() {
 
         val metrikkEtter = paksecontroller.hentMetrik()
         metrikkEtter `should be equal to` """
+Antall sjekket: 2
+
 2020-05-01
    0 soknader over dagen
    0 hadde ferie i søknaden

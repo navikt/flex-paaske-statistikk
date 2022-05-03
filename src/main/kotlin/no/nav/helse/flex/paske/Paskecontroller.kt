@@ -14,6 +14,7 @@ class Paskecontroller {
     @RequestMapping(method = [RequestMethod.GET])
     fun hentMetrik(): String {
         val buf = StringBuffer()
+        buf.append("\nAntall sjekket: ${MetrikkRepo.antallSjekket}\n")
         MetrikkRepo.dager.forEach { buf.append(it.second.formater()) }
 
         return buf.toString()
@@ -22,7 +23,7 @@ class Paskecontroller {
 
 private fun Dag.formater(): String {
     val prosent = try {
-        this.feriePaaDenneDagen.get().toDouble() / this.soknad.get().toDouble() * 100
+        this.feriePaaDenneDagen.toDouble() / this.soknad.toDouble() * 100
     } catch (e: Exception) {
         0.0
     }
